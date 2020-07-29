@@ -28,13 +28,23 @@ def list_ops():
     my_list[-1] = "bear hunter"
     print(my_list)
 
+def uc_first(s):
+    return s[0].upper() + s[1:].lower()
+
 def pig_latin(word):
     vowel = "aeiou"
+    punc = ",.!?;:-"
+    if len(word) == 0:
+        return word
+    if word[-1] in punc:
+        return pig_latin(word[:-1]) + word[-1]
     if word[0] in vowel:
-        return word + "hay" 
+        p = word + "hay"
     else:
         p = word[1:] + word[0] + "ay"
-        return p
+    if word[0].isupper():
+        p = uc_first(p)
+    return p
     
 def pig_latin_phrase(phrase):
     phrase = phrase.split(" ")
@@ -56,3 +66,4 @@ if __name__ == "__main__":
     #list_ops()
     p = pig_latin_phrase(i)
     print(p)
+
