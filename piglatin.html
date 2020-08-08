@@ -1,16 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
         <title>pigs</title>
-	<script src="piglatin.js"></script>
     </head>
     <body>
-		<h2>Type here for piglatin translation </h2>
-        <textarea rows="10" id="input" oninput="handle_input()" >
-        </textarea><br/>
-	<b>translation</b>
-	<div id="output">
-		
-	</div>
+	    <div id="app">
+       	    <v-app>
+                <v-main>
+                    <v-container fill-height>
+                        <v-row align="center" justify="center"><v-col cols="12" align="center" justify="center">
+                                <v-container>
+                                <v-row align="center"><v-col cols="12" align="center">
+                                    <h1>Piglatin translator</h1>
+                                   </v-col></v-row>
+                                <v-row><v-col>
+                                    <v-textarea solo rows="10" id="input" v-model="input" label="Type english here">
+                                    </v-textarea>
+                                </v-col><v-col>
+                                   <v-textarea solo rows="10" :value="translation" label="Piglatin translation">
+	                               </v-textarea>
+	                            </v-col></v-row>
+	                            </container>
+                        </v-col></v-row>
+                    </v-container>    
+                </v-main>
+            </v-app>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="piglatin.js"></script>
+
     </body>
 </html>

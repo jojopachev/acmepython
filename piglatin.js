@@ -44,7 +44,21 @@ function handle_input()
     
 }
 
-console.log(pig_latin_phrase("hello"))
+new Vue({
+    el: '#app',
+    vuetify: new Vuetify(),
+    data: {
+       input: ""
+    },
+
+    computed: {
+        translation() {
+            if (!this.input) return null;
+            return pig_latin_phrase(this.input);
+        }
+    }
+})
+
 /*
 def uc_first(s):
     return s[0].upper() + s[1:].lower()
