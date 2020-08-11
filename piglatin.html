@@ -10,7 +10,7 @@
     <body>
 	    <div id="app">
        	    <v-app>
-                <v-main>
+                <v-main style="background-color:rgb(255, 230, 235);">
                     <v-container fill-height>
                         <v-row align="center" justify="center"><v-col cols="12" align="center" justify="center">
                                 <v-container>
@@ -18,10 +18,10 @@
                                     <h1>Piglatin translator</h1>
                                    </v-col></v-row>
                                 <v-row><v-col>
-                                    <v-textarea solo rows="10" id="input" v-model="input" label="Type english here">
+                                    <v-textarea solo rows="10" id="input" :value="english" @input="updatePig($event)" label="Type english here">
                                     </v-textarea>
                                 </v-col><v-col>
-                                   <v-textarea solo rows="10" :value="translation" label="Piglatin translation">
+                                   <v-textarea solo rows="10" :value="pig" @input="updateEnglish($event)" label="Piglatin translation">
 	                               </v-textarea>
 	                            </v-col></v-row>
 	                            </container>
