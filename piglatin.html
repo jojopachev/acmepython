@@ -18,12 +18,20 @@
                                     <h1>Piglatin translator</h1>
                                    </v-col></v-row>
                                 <v-row><v-col>
-                                    <v-textarea solo rows="10" id="input" :value="english" @input="updatePig($event)" label="Type english here">
+                                    <v-textarea solo rows="10" id="input" :value="english" @input="updatePig($event)" label="English" ref="tEnglish">
                                     </v-textarea>
                                 </v-col><v-col>
-                                   <v-textarea solo rows="10" :value="pig" @input="updateEnglish($event)" label="Piglatin translation">
+                                   <v-textarea solo rows="10" :value="pig" @input="updateEnglish($event)" label="Piglatin" ref="tPig">
 	                               </v-textarea>
 	                            </v-col></v-row>
+	                            <v-row align="center"><v-col cols="12" align="center">
+                                    <v-btn icon v-if="direction" @click="direction=false; changeFocus()">
+                                      <v-icon  x-large>mdi-arrow-right</v-icon>
+                                    </v-btn>
+                                    <v-btn icon v-else @click="direction=true; changeFocus()">
+                                      <v-icon x-large>mdi-arrow-left</v-icon>
+                                    </v-btn>    
+                                </v-col></v-row>
 	                            </container>
                         </v-col></v-row>
                     </v-container>    
@@ -36,4 +44,4 @@
     <script src="piglatin.js"></script>
 
     </body>
-</html>
+</html

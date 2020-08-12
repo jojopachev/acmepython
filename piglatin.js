@@ -93,6 +93,7 @@ new Vue({
     data: {
         english: "",
         pig: "",
+	direction: true,
     },
 
     methods: {
@@ -103,7 +104,15 @@ new Vue({
         updatePig(val) {
             if (!val) this.english = null;
             this.pig = pig_latin_phrase(val);
-        }
+        },
+        changeFocus() {
+            if(this.direction == true) {
+	            this.$refs.tEnglish.focus();
+	        }
+	        else{
+	            this.$refs.tPig.focus();    
+	        }
+	    }
     },
 /*    computed: {
         translation() {
