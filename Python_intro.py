@@ -1,3 +1,5 @@
+from itertools import product
+
 def sphere_volume(r):
     ''' finds the volume of a sphere'''
     v = ((4./3)*(3.14159)*r**3)
@@ -53,8 +55,17 @@ def pig_latin_phrase(phrase):
         translation.append(pig_latin(w))
     return " ".join(translation)
 
+def palindrome():
+    bp = 0
+    for i, j in product(range(100, 1000), range(100, 1000)):
+        s = str(i*j)
+        if s == s[::-1]:
+            if j*i > bp:
+                bp = j*i
+    print(bp)            
+            
 if __name__ == "__main__":
-    i = input()
+    #i = input()
     #print("Hello, world!\n"*100)
     s =  sphere_volume(3)   
     #print(s)
@@ -64,6 +75,7 @@ if __name__ == "__main__":
     b = backward("hello")
     #print(b)
     #list_ops()
-    p = pig_latin_phrase(i)
-    print(p)
+    p = pig_latin_phrase("hello")
+    #print(p)
+    palindrome()
 
