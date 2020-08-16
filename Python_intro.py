@@ -62,8 +62,12 @@ def palindrome():
         if s == s[::-1]:
             if j*i > bp:
                 bp = j*i
-    print(bp)            
-            
+    print(bp)
+    
+def alt_harmonic(n):
+    a = [((-1)**(i+1))/i for i in range(1, n+1)]
+    return sum(a)
+
 if __name__ == "__main__":
     #i = input()
     #print("Hello, world!\n"*100)
@@ -77,5 +81,6 @@ if __name__ == "__main__":
     #list_ops()
     p = pig_latin_phrase("hello")
     #print(p)
-    palindrome()
-
+    #palindrome()
+    a = alt_harmonic(10**5)
+    print(a)
