@@ -68,6 +68,8 @@ def alt_harmonic(n):
     a = [((-1)**(i+1))/i for i in range(1, n+1)]
     return sum(a)
 
+
+            
 if __name__ == "__main__":
     #i = input()
     #print("Hello, world!\n"*100)
@@ -83,4 +85,4 @@ if __name__ == "__main__":
     #print(p)
     #palindrome()
     a = alt_harmonic(10**5)
-    print(a)
+    #print(a)
