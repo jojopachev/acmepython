@@ -1,3 +1,4 @@
+from itertools import combinations
 import calculator
 
 def list_stuff(el_list):
@@ -50,6 +51,14 @@ def mutable_checker():
 def triangle(a, b):
     return calculator.Sqrt(calculator.add(calculator.product(a, a), calculator.product(b, b)))
     
+def power_set(A):
+    l = []
+    for i in range(len(A)+1):
+        for t in combinations(A, i):
+            l.append(set(t))
+    return l
         
 if __name__ == "__main__":
-    print(triangle(3, 4))
+    l = {"a", "b", "c"}
+    #print(triangle(3, 4))
+    print(power_set(l))
