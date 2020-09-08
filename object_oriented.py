@@ -24,6 +24,7 @@ class Backpack:
         self.name = name
         self.contents = []
         self.max_size = max_size
+        self.color = color
 
     def put(self, item):
         """Add an item to the backpack's list of contents."""
@@ -53,8 +54,14 @@ class Backpack:
         than 'other', return True. Otherwise, return False.
         """
         return len(self.contents) < len(other.contents)
-
-
+    def __eq__ (self, other):
+        if self.name == other.name and self.color == other.color and len(self.contents) == len(other.contents):
+            return True
+        else:
+            return False
+    def __str__(self):    
+        return f"Name:\t\t{self.name}\nColor:\t\t{self.color}\nSize:\t\t{len(self.contents)}\nMax Size:\t{self.max_size}\nContents:\t{self.contents}"
+    
 # An example of inheritance. You are not required to modify this class.
 class Knapsack(Backpack):
     """A Knapsack object class. Inherits from the Backpack class.
@@ -138,5 +145,14 @@ def test_pack():
         print("Contents:", testpack.contents, "Status:", testpack_2.fly(11))
         testpack.dump()
         print(testpack.contents)
+    
+     
 if __name__ == "__main__":
-    test_pack()
+    #test_pack()
+     backpack1 = Backpack("jojo", "green")
+     backpack1.put("lunch")
+     backpack1.put("pencil")
+     backpack2 = Backpack("jojo", "green",)
+     backpack2.put("lunch")
+     backpack2.put("snacks")
+     print(backpack1)   
