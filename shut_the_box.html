@@ -9,17 +9,54 @@
         <div id="app">
             <v-app>
                 <v-main style="background-color:rgb(244,164,96);">
-                <v-container>
-                    <v-col allign="center" justify="center"><v-row allign="center" justify="center">
-                            <v-card width="50" height="50">
-                                <v-container>
+                    <v-row>
+                        <v-col style="margin-left:37%;">
+                            <v-row style="margin-top:30px; margin-left:10%;">
+                                <p>Player 1</p>
+                            </v-row>
+                        <v-row align="center" justify="center" v-for="i in boxs" :key="i">
+                            <v-container>
+                                <v-btn height="30">
+                                    <v-container>
+                                        <v-row align="center" justify="center" >
+                                            {{i}}
+                                        </v-row>
+                                    </v-container>
+                                </v-btn>
+                            </v-container>
+                        </v-row></v-col>
+                    <v-col align="center" justify="center">
+                            <v-card width="50" height="50" align="center" justify="center" style="margin-top:250px">
+                                <v-container align="center" justify="center" >
                                     <v-row align="center" justify="center" >
                                         {{number}}
                                     </v-row>
                                 </v-container>
                             </v-card>
-                    </v-row></v-col>
-                    </v-container>
+                            <v-card width="50" height="50" align="center" justify="center" style="margin-top:19px">
+                                <v-container align="center" justify="center" >
+                                    <v-row align="center" justify="center" >
+                                        {{number2}}
+                                    </v-row>
+                                </v-container>
+                            </v-card>
+                    </v-col>
+                        <v-col align="right" style="margin-right:37%;">
+                            <v-row style="margin-top:30px; margin-left:30%;">
+                                <p>Player 2</p>
+                            </v-row>
+                        <v-row align="center" justify="center" v-for="i in boxs" :key="i">
+                            <v-container>
+                                <v-btn height="30">
+                                    <v-container>
+                                        <v-row align="center" justify="center" >
+                                            {{i}}
+                                        </v-row>
+                                    </v-container>
+                                </v-btn>
+                            </v-container>
+                        </v-row></v-col>
+                    </v-row>
                 </v-main>
             </v-app>
         </div>
