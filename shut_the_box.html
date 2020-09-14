@@ -14,6 +14,7 @@
                         <v-col align="right" :cols="10">
                             <v-row style="margin-top:30px; margin-left:90%;">
                                 <p>Player 1</p>
+                                <v-icon>mdi-clock</v-icon>
                             </v-row>
                         <v-row align="center" justify="center" v-for="i in boxs" :key="i">
                             <v-container>
@@ -45,9 +46,10 @@
                     </v-row></v-col>
                     <v-col><v-row>
                         <v-col align="left" >
-                                <v-row style="margin-top:30px; margin-left:30%;">
+                                <v-row style="margin-top:30px; margin-left:15%;">
                                     <p>Player 2</p>
                                 </v-row>
+                                <v-row><v-icon style="margin-left:30%;">mdi-clock</v-icon></v-row>
                             <v-row align="center" justify="center" v-for="i in boxs" :key="i">
                                 <v-container>
                                     <v-btn height="30">
@@ -62,13 +64,22 @@
                         </v-col>
                         <v-col :cols="10">
                                 <v-row align="left">                                    
-                                        <v-col>
-                                            <v-card title="Game rules" width="300px"  >
-                                            At the start of the game all levers or tiles are "open" (cleared, up), showing the numerals 1 to 9.
-                                            During the game, each player plays in turn. A player begins his or her turn by throwing or rolling the die or dice into the box. If the remaining tile(s) show 6 or lower, the player may roll only one die. Otherwise, the player must roll both dice.
-                                            After throwing, the player adds up (or subtracts) the pips (dots) on the dice and then "shuts" (closes, covers) one of any combination of open numbers that equals the total number of dots showing on the dice. For example, if the total number of dots is 8, the player may choose any of the following sets of numbers (as long as all of the numbers in the set are available to be covered):
-                                        </v-card>
-                                                <v-btn x-large color="success" dark>
+                                        <v-col style="margin-top:13%">
+                                            <v-card width="300px">
+                                                <v-card-title>
+                                                    Game rules
+                                                </v-card-title>
+                                                <v-card-text>    
+                                                    At the start of the game all boxes are "open", showing the numerals 1 to 9.
+                                                    During the game, each player plays in turn. If the remaining tile(s) show 6 or lower the only one die will be shown. Otherwise, both dice will be in play.
+                                                    After rolling, you add up the digits on the dice and then "shut" (by clicking on) one of any combination of open numbers that equals the sum of the dice.
+                                                </v-card-text>    
+                                            </v-card>
+                                            <v-container style="width:165px; margin-right:500px;">
+                                            <h3 style="margin-top:5px">Set game length</h3>
+                                            <v-text-field name="set_start_time" value="stuff" style="margin-top:10px" background-color="white">
+                                            </v-text-field></v-container>
+                                                <v-btn x-large color="success" dark style="margin-top:5px">
                                                     Start
                                                 </v-btn>
                                     </col>
