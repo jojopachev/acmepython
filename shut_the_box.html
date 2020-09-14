@@ -8,10 +8,11 @@
     <body>
         <div id="app">
             <v-app>
-                <v-main style="background-color:rgb(244,164,96);">
+                <v-main style="background-image:url('https://d1ehtbmbkj66y7.cloudfront.net/products/teak-tabletop.jpg'); background-size: 1500px 1000px;">
                     <v-row>
-                        <v-col style="margin-left:37%;">
-                            <v-row style="margin-top:30px; margin-left:10%;">
+                    <v-col><v-row>
+                        <v-col align="right" :cols="10">
+                            <v-row style="margin-top:30px; margin-left:90%;">
                                 <p>Player 1</p>
                             </v-row>
                         <v-row align="center" justify="center" v-for="i in boxs" :key="i">
@@ -41,22 +42,41 @@
                                 </v-container>
                             </v-card>
                     </v-col>
-                        <v-col align="right" style="margin-right:37%;">
-                            <v-row style="margin-top:30px; margin-left:30%;">
-                                <p>Player 2</p>
+                    </v-row></v-col>
+                    <v-col><v-row>
+                        <v-col align="left" >
+                                <v-row style="margin-top:30px; margin-left:30%;">
+                                    <p>Player 2</p>
+                                </v-row>
+                            <v-row align="center" justify="center" v-for="i in boxs" :key="i">
+                                <v-container>
+                                    <v-btn height="30">
+                                        <v-container>
+                                            <v-row align="center" justify="center" >
+                                                {{i}}
+                                            </v-row>
+                                        </v-container>
+                                    </v-btn>
+                                </v-container>
                             </v-row>
-                        <v-row align="center" justify="center" v-for="i in boxs" :key="i">
-                            <v-container>
-                                <v-btn height="30">
-                                    <v-container>
-                                        <v-row align="center" justify="center" >
-                                            {{i}}
-                                        </v-row>
-                                    </v-container>
-                                </v-btn>
-                            </v-container>
-                        </v-row></v-col>
-                    </v-row>
+                        </v-col>
+                        <v-col :cols="10">
+                                <v-row align="left">                                    
+                                        <v-col>
+                                            <v-card title="Game rules" width="300px"  >
+                                            At the start of the game all levers or tiles are "open" (cleared, up), showing the numerals 1 to 9.
+                                            During the game, each player plays in turn. A player begins his or her turn by throwing or rolling the die or dice into the box. If the remaining tile(s) show 6 or lower, the player may roll only one die. Otherwise, the player must roll both dice.
+                                            After throwing, the player adds up (or subtracts) the pips (dots) on the dice and then "shuts" (closes, covers) one of any combination of open numbers that equals the total number of dots showing on the dice. For example, if the total number of dots is 8, the player may choose any of the following sets of numbers (as long as all of the numbers in the set are available to be covered):
+                                        </v-card>
+                                                <v-btn x-large color="success" dark>
+                                                    Start
+                                                </v-btn>
+                                    </col>
+                                </v-row>
+                        </v-col>
+                        </v-row>
+                        </v-col>
+                     </v-row>
                 </v-main>
             </v-app>
         </div>
