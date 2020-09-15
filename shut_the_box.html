@@ -18,7 +18,7 @@
                             </v-row>
                         <v-row align="center" justify="center" v-for="i in boxs" :key="i">
                             <v-container>
-                                <v-btn height="30">
+                                <v-btn height="30" @click="Handle_click('Player1', i)" >
                                     <v-container>
                                         <v-row align="center" justify="center" >
                                             {{i}}
@@ -30,16 +30,12 @@
                     <v-col align="center" justify="center">
                             <v-card width="50" height="50" align="center" justify="center" style="margin-top:250px">
                                 <v-container align="center" justify="center" >
-                                    <v-row align="center" justify="center" >
                                         {{number}}
-                                    </v-row>
                                 </v-container>
                             </v-card>
                             <v-card width="50" height="50" align="center" justify="center" style="margin-top:19px">
                                 <v-container align="center" justify="center" >
-                                    <v-row align="center" justify="center" >
                                         {{number2}}
-                                    </v-row>
                                 </v-container>
                             </v-card>
                     </v-col>
@@ -52,7 +48,7 @@
                                 <v-row><v-icon style="margin-left:30%;">mdi-clock</v-icon></v-row>
                             <v-row align="center" justify="center" v-for="i in boxs" :key="i">
                                 <v-container>
-                                    <v-btn height="30">
+                                    <v-btn height="30" @click="Handle_click('Player2', i)">
                                         <v-container>
                                             <v-row align="center" justify="center" >
                                                 {{i}}
@@ -71,7 +67,7 @@
                                                 </v-card-title>
                                                 <v-card-text>    
                                                     At the start of the game all boxes are "open", showing the numerals 1 to 9.
-                                                    During the game, each player plays in turn. If the remaining tile(s) show 6 or lower the only one die will be shown. Otherwise, both dice will be in play.
+                                                    During the game, each player plays in turn. If the remaining boxes show 6 or lower the only one die will be shown. Otherwise, both dice will be in play.
                                                     After rolling, you add up the digits on the dice and then "shut" (by clicking on) one of any combination of open numbers that equals the sum of the dice.
                                                 </v-card-text>    
                                             </v-card>
@@ -79,7 +75,7 @@
                                             <h3 style="margin-top:5px">Set game length</h3>
                                             <v-text-field name="set_start_time" value="stuff" style="margin-top:10px" background-color="white">
                                             </v-text-field></v-container>
-                                                <v-btn x-large color="success" dark style="margin-top:5px">
+                                                <v-btn x-large color="success" dark style="margin-top:5px" @click="Roll_dice()">
                                                     Start
                                                 </v-btn>
                                     </col>
