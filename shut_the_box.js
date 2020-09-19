@@ -2,10 +2,6 @@ function dice(){
     return Math.floor(Math.random()*6)+1;
 }
 
-function shut_the_box(){
-    
-}
-
 function init_clicked()
 {
     var res = [];
@@ -13,7 +9,7 @@ function init_clicked()
     return res;
 }
 
-console.log(dice());
+
 
 new Vue({
     el: '#app',
@@ -23,18 +19,82 @@ new Vue({
         number2: dice(),
         boxs: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         player1_clicked: init_clicked(),
-        player2_clicked: [],
+        player2_clicked: init_clicked(),
+        selected: [],
+        turn: true,
     },
     
     methods: {
          Roll_dice() {
              this.number = dice();
              this.number2 = dice();
+             console.log("roll:",this.number, this.number2);
+             this.turn = !this.turn;
+        },
+        
+        Sum_boxes(num) {
+                let sum_box = 0;
+                this.selected.push(num);
+                for(i = 0; i < this.selected.length; i++){
+                    let b = this.selected[i];
+                    if(this.Get_clicked(b)){
+                        sum_box += b;
+                    }
+                }
+                console.log(sum_box);
+                if(this.number+this.number2 == sum_box){
+                    this.selected = [];
+                    this.Roll_dice();
+                }
+                else if(this.number+this.number2 < sum_box){
+                    for(i = 0; i < this.selected.length; i++){
+                        var box = this.selected[i];
+                        this.Set_click(box, false)
+                    }
+                    console.log(":(");
+                    this.selected = [];
+                }
+            console.log("sum:", sum_box,);
+        },
+        
+        Get_player() {
+            if(this.turn) return "Player1";
+            
+            else return "Player2";   
+        },
+        
+        Get_clicked(num) {
+            if(this.turn){
+                return this.player1_clicked[num];
+            }
+            else {
+                return this.player2_clicked[num]; 
+            }
+            
+        },
+        
+        Set_click(num, val){
+            if(this.turn){
+                Vue.set(this.player1_clicked, num, val);
+            }
+            else{
+                Vue.set(this.player2_clicked, num, val);
+            }
         },
         
         Handle_click(player, num) {
             console.log(player, num);
-        }
+            if(player != this.Get_player()) return;
+            if(player == "Player1"){
+                Vue.set(this.player1_clicked, num, !this.player1_clicked[num]);
+                console.log(this.player1_clicked[num])
+            }
+            else if(player == "Player2"){
+                Vue.set(this.player2_clicked, num,  !this.player2_clicked[num]);
+                console.log(this.player2_clicked[num]);
+            }
+            this.Sum_boxes(num);
+        },
     }
 });
 
