@@ -18,7 +18,7 @@
                             </v-row>
                         <v-row align="center" justify="center" v-for="i in boxs" :key="i">
                             <v-container>
-                                <v-btn height="30" @click="Handle_click('Player1', i)" >
+                                <v-btn height="30" @click="Handle_click('Player1', i)" v-bind:class="{'black':player1_clicked[i]}">
                                     <v-container>
                                         <v-row align="center" justify="center" >
                                             {{i}}
@@ -48,7 +48,7 @@
                                 <v-row><v-icon style="margin-left:30%;">mdi-clock</v-icon></v-row>
                             <v-row align="center" justify="center" v-for="i in boxs" :key="i">
                                 <v-container>
-                                    <v-btn height="30" @click="Handle_click('Player2', i)">
+                                    <v-btn height="30" @click="Handle_click('Player2', i)" v-bind:class="{'black':player2_clicked[i]}">
                                         <v-container>
                                             <v-row align="center" justify="center" >
                                                 {{i}}
