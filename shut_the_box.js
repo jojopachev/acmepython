@@ -9,6 +9,10 @@ function init_clicked()
     return res;
 }
 
+function is_valid_roll(arr, roll){
+            
+        }
+
 
 
 new Vue({
@@ -30,6 +34,20 @@ new Vue({
              this.number2 = dice();
              console.log("roll:",this.number, this.number2);
              this.turn = !this.turn;
+        },
+        
+        Get_roll(){
+            return this.number + this.number2;
+        },
+        
+        Get_remaning() {
+            let rem = [];
+            for(i = 1; i <= 9; i++){
+                if(!this.Get_clicked(i)){
+                    rem.push(i);
+                }
+            }
+            return rem;
         },
         
         Sum_boxes(num) {
@@ -84,15 +102,12 @@ new Vue({
         
         Handle_click(player, num) {
             console.log(player, num);
+            if(this.Get_clicked(num) && !this.selected.includes(num)){
+                return;
+            }
             if(player != this.Get_player()) return;
-            if(player == "Player1"){
-                Vue.set(this.player1_clicked, num, !this.player1_clicked[num]);
-                console.log(this.player1_clicked[num])
-            }
-            else if(player == "Player2"){
-                Vue.set(this.player2_clicked, num,  !this.player2_clicked[num]);
-                console.log(this.player2_clicked[num]);
-            }
+            this.Set_click(num, !this.Get_clicked(num));
+            console.log("Remaning", this.Get_remaning());
             this.Sum_boxes(num);
         },
     }
