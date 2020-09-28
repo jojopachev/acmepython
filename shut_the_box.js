@@ -10,10 +10,13 @@ function init_clicked()
 }
 
 function is_valid_roll(arr, roll){
-            
+        if(roll < 0) return false;
+        if(roll == 0) return true;
+        if(arr.length == 1){
+            return arr[0] == roll;
         }
-
-
+        return is_valid_roll(arr.slice(1,), roll-arr[0]) || is_valid_roll(arr.slice(1,), roll);
+}
 
 new Vue({
     el: '#app',
@@ -26,21 +29,31 @@ new Vue({
         player2_clicked: init_clicked(),
         selected: [],
         turn: true,
+        player1_dead: false,
+        player2_dead: false,
     },
     
     methods: {
          Roll_dice() {
-             this.number = dice();
-             this.number2 = dice();
-             console.log("roll:",this.number, this.number2);
-             this.turn = !this.turn;
+            console.log("roll", this.Get_roll()) 
+            this.turn = !this.turn;
+            if(this.Check_dead()){ 
+                this.turn = !this.turn;
+                if(this.Check_dead()) return; 
+            }
+            this.number = dice();
+            this.number2 = dice();
+            var res = is_valid_roll(this.Get_remaining(), this.Get_roll());
+            if(!res){
+                this.Kill(this.Get_player());
+            }
         },
         
         Get_roll(){
             return this.number + this.number2;
         },
         
-        Get_remaning() {
+        Get_remaining() {
             let rem = [];
             for(i = 1; i <= 9; i++){
                 if(!this.Get_clicked(i)){
@@ -100,6 +113,17 @@ new Vue({
             }
         },
         
+        Kill(player){
+            console.log("Killing "+player);
+            if(player == "Player1") this.player1_dead = true;
+            else this.player2_dead = true;
+            setTimeout(this.Roll_dice, 2000);
+        },
+        
+        Check_dead() {
+            return (this.turn) ? this.player1_dead : this.player2_dead;
+        },
+        
         Handle_click(player, num) {
             console.log(player, num);
             if(this.Get_clicked(num) && !this.selected.includes(num)){
@@ -107,7 +131,6 @@ new Vue({
             }
             if(player != this.Get_player()) return;
             this.Set_click(num, !this.Get_clicked(num));
-            console.log("Remaning", this.Get_remaning());
             this.Sum_boxes(num);
         },
     }

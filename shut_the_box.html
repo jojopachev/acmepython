@@ -14,7 +14,7 @@
                         <v-col align="right" :cols="10">
                             <v-row style="margin-top:30px; margin-left:90%;">
                                 <p>Player 1</p>
-                                <v-icon v-bind:class="{'green':turn}">mdi-clock</v-icon>
+                                <v-icon v-bind:class="{'green':turn&&!player1_dead, red:player1_dead}">mdi-clock</v-icon>
                             </v-row>
                         <v-row align="center" justify="center" v-for="i in boxs" :key="i">
                             <v-container>
@@ -45,7 +45,7 @@
                                 <v-row style="margin-top:30px; margin-left:15%;">
                                     <p>Player 2</p>
                                 </v-row>
-                                <v-row><v-icon style="margin-left:30%;" v-bind:class="{'green':!turn}">mdi-clock</v-icon></v-row>
+                                <v-row><v-icon style="margin-left:30%;" v-bind:class="{'green':!turn&&!player2_dead, red:player2_dead}">mdi-clock</v-icon></v-row>
                             <v-row align="center" justify="center" v-for="i in boxs" :key="i">
                                 <v-container>
                                     <v-btn height="30" @click="Handle_click('Player2', i)" v-bind:class="{'black':player2_clicked[i]}">
