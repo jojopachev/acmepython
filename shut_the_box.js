@@ -31,28 +31,44 @@ new Vue({
         turn: true,
         player1_dead: false,
         player2_dead: false,
-        score1:0,
-        score2:0,
+        score1:50,
+        score2:50,
     },
     
     methods: {
          Roll_dice() {
+            this.Score();
+            if (this.turn && !this.score1) this.Kill("Player1");
+            else if (!this.turn && !this.score2) {
+                this.Kill("Player2");
+                this.Kill("Player1");
+            }
             console.log("roll", this.Get_roll()) 
             this.turn = !this.turn;
             if(this.Check_dead()){ 
                 this.turn = !this.turn;
                 if(this.Check_dead()) return; 
             }
-            this.number = dice();
-            this.number2 = dice();
-            var res = is_valid_roll(this.Get_remaining(), this.Get_roll());
-            if(!res){
+            while (true) {
+                this.number = dice();
+                this.number2 = (this.Get_score() > 6) ? dice() : 0;
+                var res = is_valid_roll(this.Get_remaining(), this.Get_roll());
+//                if (!this.turn && !res) continue;
+                break;
+            }
+            if(!res) {
                 this.Kill(this.Get_player());
+                setTimeout(this.Roll_dice, 2000);
                 this.Score();
             }
         },
+        Get_winner(){
+            if(this.score1 < this.score2) return "Player1 wins";
+            else if(this.score1 == this.score2) return "Draw"; 
+            else return "Player2 wins";
+        },
         
-        Score(){
+        Score() {
             let s = 0;
             let l = this.Get_remaining().length;
             let a = this.Get_remaining();
@@ -63,6 +79,10 @@ new Vue({
             if(this.turn) this.score1 = s;
             else this.score2 = s;
             console.log('score 1', this.score1, "score2", this.score2);
+        },
+        
+        Get_score() {
+            return (this.turn) ? this.score1 : this.score2;
         },
         
         Get_roll(){
@@ -133,7 +153,6 @@ new Vue({
             console.log("Killing "+player);
             if(player == "Player1") this.player1_dead = true;
             else this.player2_dead = true;
-            setTimeout(this.Roll_dice, 2000);
         },
         
         Check_dead() {
