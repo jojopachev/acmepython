@@ -84,6 +84,19 @@
                         </v-row>
                         </v-col>
                      </v-row>
+                     <v-col>
+                        <v-container>
+                            <v-card width="135px"  style="margin-left:860px; margin-top:-200px" v-if="player1_dead&&player2_dead">
+                                <v-card-title>
+                                    Game over
+                                </v-card-title>
+                                <v-card-text>
+                                    Player1: {{score1}}
+                                    Player2: {{score2}}
+                                </v-card-text>
+                            </v-card>
+                            </v-container>
+                            </v-col>
                 </v-main>
             </v-app>
         </div>
