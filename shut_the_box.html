@@ -73,9 +73,9 @@
                                             </v-card>
                                             <v-container style="width:165px; margin-right:500px;">
                                             <h3 style="margin-top:5px">Set game length</h3>
-                                            <v-text-field name="set_start_time" value="stuff" style="margin-top:10px" background-color="white">
+                                            <v-text-field name="set_start_time" style="margin-top:10px" background-color="white"  v-model="time">
                                             </v-text-field></v-container>
-                                                <v-btn x-large color="success" dark style="margin-top:5px" @click="Roll_dice()">
+                                                <v-btn x-large color="success" dark style="margin-top:5px" @click="StartGame()">
                                                     Start
                                                 </v-btn>
                                     </col>
@@ -97,6 +97,7 @@
                                 </v-card-text>
                             </v-card>
                             </v-container>
+                            <div>{{time}}</div>
                             </v-col>
                 </v-main>
             </v-app>

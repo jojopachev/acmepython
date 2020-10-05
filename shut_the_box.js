@@ -33,6 +33,10 @@ new Vue({
         player2_dead: false,
         score1:50,
         score2:50,
+        time:60,
+        time1:null,
+        time2:null,
+        gameInProgress:false,
     },
     
     methods: {
@@ -43,6 +47,7 @@ new Vue({
                 this.Kill("Player2");
                 this.Kill("Player1");
             }
+            console.log(this.time);
             console.log("roll", this.Get_roll()) 
             this.turn = !this.turn;
             if(this.Check_dead()){ 
@@ -53,7 +58,7 @@ new Vue({
                 this.number = dice();
                 this.number2 = (this.Get_score() > 6) ? dice() : 0;
                 var res = is_valid_roll(this.Get_remaining(), this.Get_roll());
-//                if (!this.turn && !res) continue;
+                //if (!this.turn && !res) continue;
                 break;
             }
             if(!res) {
@@ -138,6 +143,26 @@ new Vue({
                 return this.player2_clicked[num]; 
             }
             
+        },
+        
+        Timer(){
+            this.time1 = this.time;
+            this.time2 = this.time;
+            if(this.turn){
+              if(this.time > 0) {
+                    setTimeout(() => {
+                        if (this.time1 <= 0) return;
+                        this.time1 -= 1;
+                        this.Timer();
+                    }, 1000)
+                }  
+            }
+        },
+        
+        StartGame(){
+            if(this.gameInProgress) return;
+            this.Timer();
+            this.gameInProgress = true;
         },
         
         Set_click(num, val){
