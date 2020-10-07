@@ -22,8 +22,8 @@ new Vue({
     el: '#app',
     vuetify: new Vuetify(),
     data : {
-        number: dice(),
-        number2: dice(),
+        number: null,
+        number2: null,
         boxs: [1, 2, 3, 4, 5, 6, 7, 8, 9],
         player1_clicked: init_clicked(),
         player2_clicked: init_clicked(),
@@ -71,6 +71,7 @@ new Vue({
             if(this.score1 < this.score2) return "Player1 wins";
             else if(this.score1 == this.score2) return "Draw"; 
             else return "Player2 wins";
+            this.gameInProgress = false;
         },
         
         Score() {
@@ -146,21 +147,42 @@ new Vue({
         },
         
         Timer(){
-            this.time1 = this.time;
-            this.time2 = this.time;
-            if(this.turn){
-              if(this.time > 0) {
+            console.log(this.gameInProgress)
+            console.log("t1", this.time1, "t2", this.time2)
                     setTimeout(() => {
-                        if (this.time1 <= 0) return;
-                        this.time1 -= 1;
+                        if(!this.gameInProgress) return;                        
+                        if(this.turn){
+                            if (this.time1 <= 0){
+                                this.Kill("Player1");
+                                this.turn = !this.turn;
+                            }
+                            else this.time1 -= 1;
+                        }  
+                    
+                        else if(!this.turn){
+                                if (this.time2 <= 0) {
+                                    this.Kill("Player2");
+                                    this.turn = !this.turn;
+                                }
+                                else this.time2 -= 1;
+                        }
                         this.Timer();
-                    }, 1000)
-                }  
-            }
+                     }, 1000)
         },
         
         StartGame(){
             if(this.gameInProgress) return;
+            this.boxs = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+            this.player1_clicked = init_clicked();
+            this.player2_clicked = init_clicked();
+            this.selected = [];
+            this.turn = true;
+            this.player1_dead = this.player2_dead = false;
+            this.score1 = this.score2 = 50;
+            this.time1 = this.time;
+            this.time2 = this.time;
+            this.number = dice();
+            this.number2 = dice();
             this.Timer();
             this.gameInProgress = true;
         },
@@ -178,6 +200,7 @@ new Vue({
             console.log("Killing "+player);
             if(player == "Player1") this.player1_dead = true;
             else this.player2_dead = true;
+            if (this.player1_dead && this.player2_dead) this.gameInProgress = false;
         },
         
         Check_dead() {

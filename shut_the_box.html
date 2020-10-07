@@ -26,7 +26,9 @@
                                     </v-container>
                                 </v-btn>
                             </v-container>
-                        </v-row></v-col>
+                        </v-row>
+                        <v-row  style="margin-left:90%;"><v-card width="40px" align="center"  v-bind:class="{'green':turn&&(!player1_dead||!score1)}">{{time1}}</v-card></v-row>
+                        </v-col>
                     <v-col align="center" justify="center">
                             <v-card width="50" height="50" align="center" justify="center" style="margin-top:250px">
                                 <v-container align="center" justify="center" >
@@ -57,6 +59,7 @@
                                     </v-btn>
                                 </v-container>
                             </v-row>
+                            <v-row  align="center" justify="center"><v-card width="40px" align="center" v-bind:class="{'green':!turn&&(!player2_dead||!score2)}">{{time2}}</v-card></v-row>
                         </v-col>
                         <v-col :cols="10">
                                 <v-row align="left">                                    
@@ -97,7 +100,6 @@
                                 </v-card-text>
                             </v-card>
                             </v-container>
-                            <div>{{time}}</div>
                             </v-col>
                 </v-main>
             </v-app>
