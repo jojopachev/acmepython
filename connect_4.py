@@ -4,7 +4,7 @@ WHITE = 1
 BLACK = 2
 
 def play_game():
-    g = ConnectFour(width=4, height=5s)
+    g = ConnectFour(width=4, height=5)
     while True:
         if g.turn:
             print("White's move:")
@@ -33,21 +33,37 @@ class ConnectFour():
         self.heights[pos] += 1
         self.switch_turn()
         self.win()
+        
+    def get_char(self, num):
+        if num == 0: return "0"
+        elif num == 1: return "W"
+        else: return "B"
 
     def print_board(self):
-        print(self.board[::-1])
-    
+        for i in range(self.height -1, -1, -1):
+            a = []
+            for j in range(self.width):
+                a.append(self.get_char(self.board[i, j]))
+            print(" ".join(a))
+                
     def switch_turn(self):
         self.turn = not self.turn
     
     def win(self):
+        xs = np.arange(4)
+        ys = np.arange(4)
         for i in range(self.height):
             self.check_slice(self.board[i])
         for j in range(self.width):
             for k in range(self.height - 3):
                 self.check_slice(self.board[k:k+4, j])
 
+        for l in range(self.height - self.width + 1):
+            self.check_slice(self.board[xs + l, ys])
+            self.check_slice(self.board[xs[::-1] + l, ys])
+
     def check_slice(self, ar):
+        if self.game_over: return
         if np.all(ar == 1): 
             print("White wins!")
             self.game_over = True
