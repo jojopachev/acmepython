@@ -13,7 +13,10 @@ def play_game():
             mes = "Black's turn:"
             if g.game_over: return
         r = input(mes).split()
-        g.move(int(r[0]), int(r[1]))
+        try:
+            g.move(int(r[0]), int(r[1]))
+        except (ValueError, IndexError):
+            print("Invalid input")
         g.print_heights()
             
 class PillarsOfPlato():
@@ -45,13 +48,19 @@ class PillarsOfPlato():
         self.turn = not self.turn
         
     def win(self):
+        ar1 = np.arange(4)
+        ar2 = np.arange(4)
+        ar3 = np.arange(4)
+        ar4 = ar3[::-1]
         for i in range(self.width):
             self.check_board(self.board[i])
         for j in range(self.length):
             self.check_board(self.board[:, j])
         for k in range(self.height):
             self.check_board(self.board[:, :, k])
-
+        self.check_board(self.board[ar1, ar2])
+        self.check_board(self.board[ar3, ar4])
+        
     def check_board(self, board):
         board = board.T
         height, width = board.shape
@@ -88,6 +97,7 @@ if __name__ == "__main__":
     #Horizontal win for White
     #g = test_game([[2, 2], [0, 0], [3, 3], [1, 0], [2, 2], [2, 0], [3, 3], [3, 0]])
     #test_game([[2, 2], [0, 0], [3, 3], [0, 0], [2, 2], [0, 0], [3, 3], [0, 0]])
-    test_game([[0, 0], [0, 0], [1, 1], [1, 0], [2, 2], [2, 0], [3, 3]])
+    #test_game([[0, 0], [0, 0], [1, 1], [1, 0], [2, 2], [2, 0], [3, 3]])
+    #test_game([[0,0], [0,0], [2, 2], [1,1], [1, 1], [2, 2], [2, 2],  [3,3], [3,3], [3, 3], [3, 3]])
     #print(g.check_board(g.board[:,0]))
-    #play_game()
+    play_game()
