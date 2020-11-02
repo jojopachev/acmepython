@@ -1,24 +1,44 @@
+import random
 import numpy as np
 
 WHITE = 1
 BLACK = 2
 
+
 def play_game():
     g = PillarsOfPlato(width=4, length=4, height=5)
     while True:
-        if g.turn:
-            mes = "White's turn:"
-            if g.game_over: return
-        else:
-            mes = "Black's turn:"
-            if g.game_over: return
+        mes = g.get_mes()
         r = input(mes).split()
         try:
             g.move(int(r[0]), int(r[1]))
         except (ValueError, IndexError):
             print("Invalid input")
         g.print_heights()
-            
+        if g.game_over: return
+        
+def play_computer(color):
+    if color == "White":
+        computer_turn = False
+    else:
+        computer_turn = True
+        
+    g = PillarsOfPlato(width=4, length=4, height=5)
+    while True:
+        if computer_turn:
+                g.rand_move()
+        else:
+            mes = g.get_mes()
+            r = input(mes).split()
+            try:
+                g.move(int(r[0]), int(r[1]))
+            except (ValueError, IndexError):
+                print("Invalid input")
+                continue
+        g.print_heights()
+        computer_turn = not computer_turn
+        if g.game_over: return   
+        
 class PillarsOfPlato():
     
     def __init__(self, width=4, length=4, height=5):
@@ -41,6 +61,13 @@ class PillarsOfPlato():
         elif num == 1: return "W"
         else: return "B"
 
+    def get_mes(self):
+        if self.turn:
+            return "White's turn:"
+        else:
+            return "Black's turn:"
+            
+    
     def print_heights(self):
         print(self.heights)
                 
@@ -84,7 +111,16 @@ class PillarsOfPlato():
             print("Black wins!")
             self.game_over = True
         else: return
-        
+    
+    def rand_move(self):
+        while True:
+            rx = random.randint(0, 3)
+            ry = random.randint(0, 3)
+            if self.heights[rx, ry] == self.height:
+                continue
+            else:
+                self.move(rx, ry)
+                break
 
 def test_game(moves):
     g = PillarsOfPlato(width=4, length=4, height=5)
@@ -100,4 +136,4 @@ if __name__ == "__main__":
     #test_game([[0, 0], [0, 0], [1, 1], [1, 0], [2, 2], [2, 0], [3, 3]])
     #test_game([[0,0], [0,0], [2, 2], [1,1], [1, 1], [2, 2], [2, 2],  [3,3], [3,3], [3, 3], [3, 3]])
     #print(g.check_board(g.board[:,0]))
-    play_game()
+    play_computer("White")
