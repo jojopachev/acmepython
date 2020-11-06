@@ -49,12 +49,14 @@ class PillarsOfPlato():
         self.width = width
         self.height = height
         self.length = length
+        self.last_move = None
         
     def move(self,  x, y):
         self.board[x, y, self.heights[x, y]] = WHITE if self.turn else BLACK
         self.heights[x, y] += 1
         self.switch_turn()
         self.win()
+        self.last_move = (x, y)
         
     def get_char(self, num):
         if num == 0: return "0"
