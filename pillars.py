@@ -1,5 +1,6 @@
 import random
 import numpy as np
+import time
 
 WHITE = 1
 BLACK = 2
@@ -17,7 +18,7 @@ def play_game():
         g.print_heights()
         if g.game_over: return
         
-def play_computer(color):
+def play_computer(color, mode):
     if color == "White":
         computer_turn = False
     else:
@@ -26,7 +27,7 @@ def play_computer(color):
     g = PillarsOfPlato(width=4, length=4, height=5)
     while True:
         if computer_turn:
-                g.rand_move()
+                computer_move(mode)
         else:
             mes = g.get_mes()
             r = input(mes).split()
@@ -41,7 +42,7 @@ def play_computer(color):
         
 class PillarsOfPlato():
     
-    def __init__(self, width=4, length=4, height=5):
+    def __init__(self, width=4, length=4, height=5, mute=False):
         self.heights = np.zeros((width, length),  dtype=int)
         self.board = np.zeros((width, length, height), dtype=int)
         self.turn = True
@@ -50,6 +51,8 @@ class PillarsOfPlato():
         self.height = height
         self.length = length
         self.last_move = None
+        self.mute = mute
+        random.seed(int(time.time()))
         
     def move(self,  x, y):
         self.board[x, y, self.heights[x, y]] = WHITE if self.turn else BLACK
@@ -57,6 +60,13 @@ class PillarsOfPlato():
         self.switch_turn()
         self.win()
         self.last_move = (x, y)
+        
+    def undo_move(self):
+        x,y = self.last_move
+        self.game_over = False
+        self.switch_turn()
+        self.heights[x, y] -= 1
+        self.board[x, y, self.heights[x, y]] = 0
         
     def get_char(self, num):
         if num == 0: return "0"
@@ -107,12 +117,32 @@ class PillarsOfPlato():
     def check_slice(self, ar):
         if self.game_over: return
         if np.all(ar == 1): 
-            print("White wins!")
+            if not self.mute: print("White wins!")
             self.game_over = True
         elif np.all(ar == 2): 
-            print("Black wins!")
+            if not self.mute: print("Black wins!")
             self.game_over = True
         else: return
+    
+    def less_dumb_move(self):
+        for x in range(self.width):
+            for y in range(self.length):
+                if self.heights[x, y] == self.height:
+                    continue
+                self.move(x, y)
+                if self.game_over == True:
+                    return
+                else:
+                    self.undo_move()
+        self.rand_move()
+
+    def computer_move(self, mode):
+        if mode == "Dumb":
+            self.rand_move()
+        elif mode == "Less dumb":
+            self.less_dumb_move()
+        else:
+            print(f"Error {mode} is not a compatible mode")
     
     def rand_move(self):
         while True:
@@ -138,4 +168,5 @@ if __name__ == "__main__":
     #test_game([[0, 0], [0, 0], [1, 1], [1, 0], [2, 2], [2, 0], [3, 3]])
     #test_game([[0,0], [0,0], [2, 2], [1,1], [1, 1], [2, 2], [2, 2],  [3,3], [3,3], [3, 3], [3, 3]])
     #print(g.check_board(g.board[:,0]))
-    play_computer("White")
+    play_computer("White", "Less dumb")
+    
