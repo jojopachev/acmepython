@@ -36,13 +36,36 @@ def anagram_finder2(word, dic):
 
     return a
 
+def dictionary_maker(d):
+    s = {}
+    for w in d:
+        sw = sort(w)
+        if sw not in s:
+           s[sw] = []
+        s[sw].append(w)
+
+    return s
+
+def stats(d):
+    s = dictionary_maker(d)
+    c = {}
+    for w in s:
+        if len(s[w]) not in c:
+            c[len(s[w])] = 0
+        c[len(s[w])] += 1
+        if len(s[w]) > 10:
+            print(s[w], len(s[w]))
+    print(c)    
+
+
 if __name__ == "__main__":
-    i = input("Enter a word or list of letters:")
+    #i = input("Enter a word or list of letters:")
     d = load_words()
-    if len(i) > 8:
-        a = anagram_finder2(i, d)
-    else:
-        a = anagram_finder(i, d)
-    print(f"The anagrams of {i} are:{' '.join(a)}")
+    #if len(i) > 8:
+        #a = anagram_finder2(i, d)
+    #else:
+        #a = anagram_finder(i, d)
+    #print(f"The anagrams of {i} are:{' '.join(a)}")
     #perm("cat")
     #print(sort("zxcvbnmlkjhgfdsaqwertyuiop"))
+    stats(d)
