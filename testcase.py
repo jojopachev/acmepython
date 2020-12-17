@@ -1,4 +1,5 @@
 import pillars as  p
+import plato
 
 def random_game(mute=False):
     g = p.PillarsOfPlato(width=4, length=4, height=5, mute=mute)
@@ -17,13 +18,20 @@ def random_game(mute=False):
     return move, winner
 
 def play_game(white_mode, black_mode, mute=False):
+
+    a = b = None
+    if white_mode  == "Smart":
+        a = plato.PlatoAI()
+    if black_mode == "Smart":
+        b = plato.PlatoAI()
+    
     g = p.PillarsOfPlato(width=4, length=4, height=5, mute=mute)
     move = []
     while True:
         if g.turn: 
-            g.computer_move(white_mode)
+            g.computer_move(white_mode, c=a)
         else:
-            g.computer_move(black_mode)
+            g.computer_move(black_mode, c=b)
         move.append(g.last_move)
         if g.game_over:
             if g.turn:
@@ -34,7 +42,7 @@ def play_game(white_mode, black_mode, mute=False):
     return move, winner
 
 def make_testcase(fname):
-    move, winner = play_game("Dumb", "Less dumb")
+    move, winner = play_game("Smart", "Smart")
     with open(fname, "w") as f:
             f.write(str(winner) + "\n")
             for t in move:
@@ -54,7 +62,8 @@ def get_stats(n):
     for i in range(n):
         #move, winner = play_game("Dumb", "Less dumb", mute=True)
         #move, winner = play_game("Less dumb", "Dumb", mute=True)
-        move, winner = play_game("Less dumb", "Less dumb", mute=True)
+        #move, winner = play_game("Less dumb", "Less dumb", mute=True)
+        move, winner = play_game("Smart", "Smart", mute=True)
         lengths[i] = len(move)
         winners[i] = winner
         if i%10 == 0: print(f"Processed {i+1}")

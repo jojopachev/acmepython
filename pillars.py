@@ -1,6 +1,7 @@
 import random
 import numpy as np
 import time
+import plato
 
 WHITE = 1
 BLACK = 2
@@ -19,6 +20,10 @@ def play_game():
         if g.game_over: return
         
 def play_computer(color, mode):
+    if mode == "Smart":
+        a = plato.PlatoAI()
+    else: a = None
+        
     if color == "White":
         computer_turn = False
     else:
@@ -27,18 +32,20 @@ def play_computer(color, mode):
     g = PillarsOfPlato(width=4, length=4, height=5)
     while True:
         if computer_turn:
-                computer_move(mode)
+                g.computer_move(mode, c=a)
         else:
             mes = g.get_mes()
             r = input(mes).split()
             try:
                 g.move(int(r[0]), int(r[1]))
+                #if a is not None:
+                #    a.move(int(r[0]), int(r[1]))
             except (ValueError, IndexError):
                 print("Invalid input")
                 continue
         g.print_heights()
         computer_turn = not computer_turn
-        if g.game_over: return   
+        if g.game_over: return
         
 class PillarsOfPlato():
     
@@ -135,12 +142,22 @@ class PillarsOfPlato():
                 else:
                     self.undo_move()
         self.rand_move()
-
-    def computer_move(self, mode):
+            
+        
+    def smart_move(self, c):
+        row, col = c.pick_move()
+        self.move(row, col)
+        
+    def computer_move(self, mode, c=None):
         if mode == "Dumb":
             self.rand_move()
         elif mode == "Less dumb":
             self.less_dumb_move()
+        elif mode == "Smart":
+            if self.last_move is not None:
+                x, y = self.last_move
+                c.move(x, y)
+            self.smart_move(c)
         else:
             print(f"Error {mode} is not a compatible mode")
     
@@ -168,5 +185,4 @@ if __name__ == "__main__":
     #test_game([[0, 0], [0, 0], [1, 1], [1, 0], [2, 2], [2, 0], [3, 3]])
     #test_game([[0,0], [0,0], [2, 2], [1,1], [1, 1], [2, 2], [2, 2],  [3,3], [3,3], [3, 3], [3, 3]])
     #print(g.check_board(g.board[:,0]))
-    play_computer("White", "Less dumb")
-    
+    play_computer("White", "Smart")
